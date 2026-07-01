@@ -1,0 +1,38 @@
+name: SprintKB
+version: '${project.version}'
+main: dev.sprintmc.sprintkb.SprintKBPlugin
+api-version: '1.20'
+authors: [SprintMC Development, Tejas]
+description: A modern, smooth PvP knockback plugin.
+
+commands:
+  sprintkb:
+    description: Main command for SprintKB
+    aliases: [skb]
+    permission: sprintkb.admin
+
+permissions:
+  sprintkb.admin:
+    description: Allows full access to SprintKB commands.
+    default: op
+  sprintkb.reload:
+    description: Allows reloading the configuration.
+    default: op
+  sprintkb.debug:
+    description: Allows toggling debug mode.
+    default: op
+  sprintkb.test:
+    description: Allows testing knockback on players.
+    default: op
+  sprintkb.profile.default:
+    default: true
+  sprintkb.profile.sword:
+    default: false
+  sprintkb.profile.axe:
+    default: false
+  sprintkb.profile.crystal:
+    default: false
+  sprintkb.profile.sumo:
+    default: false
+  sprintkb.profile.boxing:
+    default: false

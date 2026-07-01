@@ -1,0 +1,83 @@
+# SprintKB Configuration
+# Modern PvP knockback plugin for Minecraft 1.20+
+
+startup-banner:
+  enabled: true
+  style: "modern"
+  show-version: true
+  show-author: true
+  show-support-range: true
+  show-update-status: true
+
+ping-compensation:
+  enabled: true
+  rolling-average: true
+  samples: 10
+  ping-offset: 25
+  max-compensation-ms: 120
+  spike-threshold: 20
+  max-extra-horizontal: 0.04
+  max-extra-vertical: 0.02
+
+lag-safety:
+  enabled: true
+  min-tps: 18.5
+  max-mspt: 55
+  disable-ping-compensation-when-lagging: true
+  stable-kb-mode-when-lagging: true
+
+compatibility:
+  respect-cancelled-events: true
+  ignore-creative: true
+  ignore-spectator: true
+  apply-delay-ticks: 0
+  use-player-velocity-event-fallback: false
+  max-final-horizontal: 1.05
+  max-final-vertical: 0.45
+
+weapon-modifiers:
+  enabled: true
+  sword: 1.0
+  axe: 1.0
+  mace: 1.0
+  fist: 1.0
+
+# This is the single global knockback profile for all kits and modes.
+profiles:
+  default:
+    horizontal: 0.40
+    vertical: 0.34
+    vertical-cap: 0.42
+    horizontal-cap: 1.00
+    min-horizontal: 0.22
+    ground-multiplier: 1.00
+    air-multiplier: 0.82
+    sprint-horizontal-bonus: 0.06
+    sprint-vertical-bonus: 0.015
+    critical-hit-modifier: 1.00
+    shield-hit-modifier: 0.92
+    combo:
+      enabled: true
+      max-combo-ticks: 18
+      vertical-reduction-per-hit: 0.018
+      min-vertical: 0.28
+
+updater:
+  enabled: true
+  owner: "tejasjhain-sudo"
+  repo: "SprintKB"
+  check-on-startup: true
+  check-interval-minutes: 360
+  auto-download: true
+  download-to-paper-update-folder: true
+  asset-name-contains: "SprintKB"
+  include-prereleases: false
+  notify-admins: true
+  require-restart: true
+  # Paste your GitHub Personal Access Token here AFTER deploying to your server.
+  # Never commit a real token here. Leave blank for public repositories.
+  github-token: ""
+
+restart:
+  auto-restart-after-download: false
+  restart-command: "restart"
