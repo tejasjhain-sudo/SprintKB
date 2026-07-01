@@ -35,6 +35,9 @@ public class KnockbackEngine {
         }
         
         KnockbackProfile profile = profileManager.getProfile(victim);
+        if (profile == null) {
+            return originalKnockback;
+        }
         Vector finalKb = new Vector(0, 0, 0);
         
         // Base Calculation
