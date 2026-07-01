@@ -18,12 +18,18 @@ public class KnockbackProfile {
     private final int maxComboTicks;
     private final double verticalReductionPerHit;
     private final double comboMinVertical;
+    private final double comboHorizontalBonusPerHit;
+    private final double comboMaxHorizontalBonus;
+    
+    private final Boolean pingCompensationEnabled;
 
     public KnockbackProfile(String name, double horizontal, double vertical, double horizontalCap, double verticalCap,
                             double minHorizontal, double groundMultiplier, double airMultiplier,
                             double sprintHorizontalBonus, double sprintVerticalBonus, double criticalHitModifier,
                             double shieldHitModifier, boolean comboEnabled, int maxComboTicks,
-                            double verticalReductionPerHit, double comboMinVertical) {
+                            double verticalReductionPerHit, double comboMinVertical,
+                            double comboHorizontalBonusPerHit, double comboMaxHorizontalBonus,
+                            Boolean pingCompensationEnabled) {
         this.name = name;
         this.horizontal = horizontal;
         this.vertical = vertical;
@@ -40,6 +46,9 @@ public class KnockbackProfile {
         this.maxComboTicks = maxComboTicks;
         this.verticalReductionPerHit = verticalReductionPerHit;
         this.comboMinVertical = comboMinVertical;
+        this.comboHorizontalBonusPerHit = comboHorizontalBonusPerHit;
+        this.comboMaxHorizontalBonus = comboMaxHorizontalBonus;
+        this.pingCompensationEnabled = pingCompensationEnabled;
     }
 
     public String getName() { return name; }
@@ -58,4 +67,7 @@ public class KnockbackProfile {
     public int getMaxComboTicks() { return maxComboTicks; }
     public double getVerticalReductionPerHit() { return verticalReductionPerHit; }
     public double getComboMinVertical() { return comboMinVertical; }
+    public double getComboHorizontalBonusPerHit() { return comboHorizontalBonusPerHit; }
+    public double getComboMaxHorizontalBonus() { return comboMaxHorizontalBonus; }
+    public Boolean getPingCompensationEnabled() { return pingCompensationEnabled; }
 }

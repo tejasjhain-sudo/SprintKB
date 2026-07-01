@@ -61,6 +61,56 @@ profiles:
       max-combo-ticks: 18
       vertical-reduction-per-hit: 0.018
       min-vertical: 0.28
+  nethpot:
+    horizontal: 0.36
+    vertical: 0.31
+    vertical-cap: 0.37
+    horizontal-cap: 0.90
+    min-horizontal: 0.23
+    ground-multiplier: 1.00
+    air-multiplier: 0.78
+    sprint-horizontal-bonus: 0.03
+    sprint-vertical-bonus: 0.008
+    critical-hit-modifier: 1.00
+    shield-hit-modifier: 0.90
+    combo:
+      enabled: true
+      max-combo-ticks: 18
+      vertical-reduction-per-hit: 0.005
+      min-vertical: 0.28
+    ping-compensation:
+      enabled: false
+  tank:
+    horizontal: 0.39
+    vertical: 0.30
+    vertical-cap: 0.35
+    horizontal-cap: 0.95
+    min-horizontal: 0.25
+    ground-multiplier: 1.00
+    air-multiplier: 0.84
+    sprint-horizontal-bonus: 0.04
+    sprint-vertical-bonus: 0.006
+    critical-hit-modifier: 1.00
+    shield-hit-modifier: 0.90
+    combo:
+      enabled: true
+      max-combo-ticks: 20
+      vertical-reduction-per-hit: 0.006
+      min-vertical: 0.26
+      horizontal-bonus-per-hit: 0.003
+      max-horizontal-bonus: 0.018
+
+# PlaceholderAPI fallback for dynamic profile loading. 
+# You can map PlaceholderAPI values to your profiles.
+# Format: "%placeholder%": { "Value": "profile_name" }
+profile-mappings:
+  enabled: false
+  # Example: If PlaceholderAPI is installed and %practice_kit% returns "NethPot", use the "nethpot" profile
+  # placeholders:
+  #   "%practice_kit%":
+  #     "NethPot": "nethpot"
+  #     "Tank": "tank"
+  #     "Boxing": "boxing"
 
 updater:
   enabled: true

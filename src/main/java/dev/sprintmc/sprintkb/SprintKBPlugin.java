@@ -72,4 +72,8 @@ public class SprintKBPlugin extends JavaPlugin {
     public static SprintKBPlugin getInstance() {
         return instance;
     }
+    
+    public ProfileManager getProfileManager() {
+        return profileManager;
+    }
 }

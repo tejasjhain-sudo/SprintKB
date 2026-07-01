@@ -37,7 +37,10 @@ public class ConfigManager {
                     p.getBoolean("combo.enabled", true),
                     p.getInt("combo.max-combo-ticks", 18),
                     p.getDouble("combo.vertical-reduction-per-hit", 0.018),
-                    p.getDouble("combo.min-vertical", 0.28)
+                    p.getDouble("combo.min-vertical", 0.28),
+                    p.getDouble("combo.horizontal-bonus-per-hit", 0.0),
+                    p.getDouble("combo.max-horizontal-bonus", 0.0),
+                    p.contains("ping-compensation.enabled") ? p.getBoolean("ping-compensation.enabled") : null
                 );
                 profiles.put(key, profile);
             }

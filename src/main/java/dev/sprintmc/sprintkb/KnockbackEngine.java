@@ -79,6 +79,14 @@ public class KnockbackEngine {
             if (combo > 1) {
                 vertical -= (combo - 1) * profile.getVerticalReductionPerHit();
                 vertical = Math.max(vertical, profile.getComboMinVertical());
+                
+                if (profile.getComboHorizontalBonusPerHit() > 0) {
+                    double bonus = (combo - 1) * profile.getComboHorizontalBonusPerHit();
+                    if (profile.getComboMaxHorizontalBonus() > 0) {
+                        bonus = Math.min(bonus, profile.getComboMaxHorizontalBonus());
+                    }
+                    horizontal += bonus;
+                }
             }
         }
         
@@ -86,7 +94,11 @@ public class KnockbackEngine {
         boolean isLagging = lagMonitor.isLagging();
         boolean disablePingCompWhenLagging = plugin.getConfig().getBoolean("lag-safety.disable-ping-compensation-when-lagging", true);
         
-        if (plugin.getConfig().getBoolean("ping-compensation.enabled", true) && (!isLagging || !disablePingCompWhenLagging)) {
+        boolean pingCompEnabled = profile.getPingCompensationEnabled() != null 
+            ? profile.getPingCompensationEnabled() 
+            : plugin.getConfig().getBoolean("ping-compensation.enabled", true);
+        
+        if (pingCompEnabled && (!isLagging || !disablePingCompWhenLagging)) {
             int attackerPing = pingTracker.getAveragePing(attacker);
             int pingOffset = plugin.getConfig().getInt("ping-compensation.ping-offset", 25);
             int maxCompMs = plugin.getConfig().getInt("ping-compensation.max-compensation-ms", 120);

@@ -40,7 +40,9 @@ public class CommandManager implements CommandExecutor, TabCompleter {
             sender.sendMessage(ChatColor.AQUA + "SprintKB Commands:");
             sender.sendMessage(ChatColor.AQUA + "/sprintkb reload " + ChatColor.WHITE + "- Reload the config");
             sender.sendMessage(ChatColor.AQUA + "/sprintkb debug <on/off> " + ChatColor.WHITE + "- Toggle debug mode");
-            sender.sendMessage(ChatColor.AQUA + "/sprintkb profile <player> <profile> " + ChatColor.WHITE + "- Set player profile");
+            sender.sendMessage(ChatColor.AQUA + "/sprintkb profile <player> " + ChatColor.WHITE + "- View a player's active profile details");
+            sender.sendMessage(ChatColor.AQUA + "/sprintkb setprofile <player> <profile> " + ChatColor.WHITE + "- Set player profile");
+            sender.sendMessage(ChatColor.AQUA + "/sprintkb clearprofile <player> " + ChatColor.WHITE + "- Clear player profile");
             sender.sendMessage(ChatColor.AQUA + "/sprintkb setworldprofile <world> <profile> " + ChatColor.WHITE + "- Set world profile");
             sender.sendMessage(ChatColor.AQUA + "/sprintkb update <check|download|status|disable> " + ChatColor.WHITE + "- Updater commands");
             sender.sendMessage(ChatColor.AQUA + "/sprintkb test <player> " + ChatColor.WHITE + "- Apply test KB to player");
@@ -102,6 +104,24 @@ public class CommandManager implements CommandExecutor, TabCompleter {
                 }
                 break;
             case "profile":
+                if (args.length == 2) {
+                    Player target = Bukkit.getPlayer(args[1]);
+                    if (target != null) {
+                        KnockbackProfile p = profileManager.getProfile(target);
+                        sender.sendMessage(ChatColor.AQUA + "Active Profile: " + ChatColor.WHITE + p.getName());
+                        sender.sendMessage(ChatColor.AQUA + "Horizontal: " + ChatColor.WHITE + p.getHorizontal());
+                        sender.sendMessage(ChatColor.AQUA + "Vertical: " + ChatColor.WHITE + p.getVertical());
+                        sender.sendMessage(ChatColor.AQUA + "Air Multiplier: " + ChatColor.WHITE + p.getAirMultiplier());
+                        boolean pc = p.getPingCompensationEnabled() != null ? p.getPingCompensationEnabled() : plugin.getConfig().getBoolean("ping-compensation.enabled", true);
+                        sender.sendMessage(ChatColor.AQUA + "Ping Compensation: " + ChatColor.WHITE + (pc ? "enabled" : "disabled"));
+                    } else {
+                        sender.sendMessage(ChatColor.RED + "Player not found.");
+                    }
+                } else {
+                    sender.sendMessage(ChatColor.RED + "Usage: /sprintkb profile <player>");
+                }
+                break;
+            case "setprofile":
                 if (args.length == 3) {
                     Player target = Bukkit.getPlayer(args[1]);
                     if (target != null) {
@@ -111,7 +131,20 @@ public class CommandManager implements CommandExecutor, TabCompleter {
                         sender.sendMessage(ChatColor.RED + "Player not found.");
                     }
                 } else {
-                    sender.sendMessage(ChatColor.RED + "Usage: /sprintkb profile <player> <profile>");
+                    sender.sendMessage(ChatColor.RED + "Usage: /sprintkb setprofile <player> <profile>");
+                }
+                break;
+            case "clearprofile":
+                if (args.length == 2) {
+                    Player target = Bukkit.getPlayer(args[1]);
+                    if (target != null) {
+                        profileManager.removePlayer(target);
+                        sender.sendMessage(ChatColor.GREEN + "Cleared custom profile for " + target.getName());
+                    } else {
+                        sender.sendMessage(ChatColor.RED + "Player not found.");
+                    }
+                } else {
+                    sender.sendMessage(ChatColor.RED + "Usage: /sprintkb clearprofile <player>");
                 }
                 break;
             case "setworldprofile":
@@ -160,12 +193,12 @@ public class CommandManager implements CommandExecutor, TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("reload", "debug", "profile", "setworldprofile", "test", "reset", "update");
+            return Arrays.asList("reload", "debug", "profile", "setprofile", "clearprofile", "setworldprofile", "test", "reset", "update");
         } else if (args.length == 2 && args[0].equalsIgnoreCase("debug")) {
             return Arrays.asList("on", "off");
         } else if (args.length == 2 && args[0].equalsIgnoreCase("update")) {
             return Arrays.asList("check", "download", "status", "disable");
-        } else if (args.length == 3 && (args[0].equalsIgnoreCase("profile") || args[0].equalsIgnoreCase("setworldprofile"))) {
+        } else if (args.length == 3 && (args[0].equalsIgnoreCase("setprofile") || args[0].equalsIgnoreCase("setworldprofile"))) {
             return new ArrayList<>(configManager.getProfiles().keySet());
         }
         return new ArrayList<>();
